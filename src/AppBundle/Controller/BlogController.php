@@ -49,6 +49,10 @@ class BlogController extends Controller
     public function indexAction($page, $_format)
     {
         $posts = $this->getDoctrine()->getRepository(Post::class)->findLatest($page);
+        $this->get('sp.breadcrumbs')->addWithHomePage([
+        	['breadcrumb.blog', 'blog_index']
+        ]);
+
 
         // Every template name also has two extensions that specify the format and
         // engine for that template.

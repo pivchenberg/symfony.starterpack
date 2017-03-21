@@ -1,0 +1,18 @@
+{% if wo_breadcrumbs()|length %}
+    {%- spaceless -%}
+        <div class="sst-breadcrumbs sst-text--s {{ listClass }}" id="{{ listId }}" itemscope itemtype="http://schema.org/BreadcrumbList">
+            {% for b in breadcrumbs %}
+
+                    {% if b.url and not loop.last %}
+                        <a class="sst-breadcrumbs__link{% if loop.first %} sst-breadcrumbs__link--home{% endif %}" href="{{ b.url }}" itemprop="item"{% if linkRel is defined and linkRel|length %} rel="{{ linkRel }}"{% endif %}>{{- b.text | trans(b.translationParameters, translation_domain, locale) | raw -}}</a>
+                    {% else %}
+                        <span itemprop="name">{{- b.text | trans(b.translationParameters, translation_domain, locale) -}}</span>
+                    {% endif %}
+                    <meta itemprop="position" content="{{ loop.index }}" />
+                {% if separator is not null and not loop.last %}
+                    <i class="sst-icon sst-icon--chevron-right-t1 sst-breadcrumbs__divider {{ separatorClass }}"></i>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {%- endspaceless -%}
+{% endif %}

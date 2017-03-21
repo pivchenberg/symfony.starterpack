@@ -1,0 +1,68 @@
+<?php
+
+if (!is_file('composer.json')) {
+	throw new \RuntimeException('This script must be started from the project root folder');
+}
+
+umask(0002);
+set_time_limit(0);
+
+
+/** @var Composer\Autoload\ClassLoader $loader */
+$loader = require __DIR__.'/../app/autoload.php';
+
+use Symfony\Component\Console\Output\OutputInterface;
+
+$output = new \Symfony\Component\Console\Output\ConsoleOutput();
+
+/**
+ * @param $commands
+ * @param \Symfony\Component\Console\Output\ConsoleOutput $output
+ *
+ * @return boolean
+ */
+function execute_commands($commands, $output)
+{
+	foreach($commands as $command) {
+		$output->writeln(sprintf('<info>Executing : </info> %s', $command));
+		$p = new \Symfony\Component\Process\Process($command);
+		$p->setTimeout(null);
+		$p->run(function($type, $data) use ($output) {
+			$output->write($data, false, OutputInterface::OUTPUT_RAW);
+		});
+
+		if (!$p->isSuccessful()) {
+			return false;
+		}
+
+		$output->writeln("");
+	}
+
+	return true;
+}
+
+// find out the default php runtime
+$bin = 'php';
+
+if (defined('PHP_BINARY')) {
+	$bin = PHP_BINARY;
+}
+
+$success = execute_commands(array(
+	'composer install',
+	$bin . ' ./bin/console doctrine:migrations:migrate --no-interaction',
+	$bin . ' ./bin/console doctrine:fixtures:load --no-interaction',
+	$bin . ' ./bin/console doctrine:schema:update --force',
+	$bin . ' ./bin/console cache:clear --env=prod',
+	$bin . ' ./bin/console cache:clear --env=dev'
+), $output);
+
+if (!$success) {
+	$output->writeln('<info>An error occurs when running a command!</info>');
+
+	exit(1);
+}
+
+$output->writeln('<info>Done!</info>');
+
+exit(0);

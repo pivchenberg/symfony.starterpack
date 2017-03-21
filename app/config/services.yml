@@ -1,3 +1,6 @@
+parameters:
+  file_uploader_default_directory: "/web/uploads/files"
+
 services:
     # First we define some basic services to make these utilities available in
     # the entire application
@@ -34,11 +37,11 @@ services:
     # Event Listeners are classes that listen to one or more specific events.
     # Those events are defined in the tags added to the service definition.
     # See http://symfony.com/doc/current/event_dispatcher.html#creating-an-event-listener
-    app.redirect_to_preferred_locale_listener:
-        class: AppBundle\EventListener\RedirectToPreferredLocaleListener
-        arguments: ['@router', '%app_locales%', '%locale%']
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+#    app.redirect_to_preferred_locale_listener:
+#        class: AppBundle\EventListener\RedirectToPreferredLocaleListener
+#        arguments: ['@router', '%app_locales%', '%locale%']
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
     app.comment_notification:
         class: AppBundle\EventListener\CommentNotificationListener
@@ -81,3 +84,48 @@ services:
     #
     # // same code using repository services
     # $posts = $this->get('app.post_repository')->findAll();
+
+    #starting pack services
+    sp.email_messages:
+      class: AppBundle\Services\EmailMessages
+      arguments: ["@twig"]
+
+    sp.file_uploader:
+      class: AppBundle\Services\FileUploader
+      arguments: ["@service_container", "%file_uploader_default_directory%"]
+
+    sp.plural_form:
+      class: AppBundle\Services\PluralForm
+      autowire: true
+
+    sp.ru_date_format:
+      class: AppBundle\Services\RuDateFormat
+      autowire: true
+
+    sp.random:
+      class: AppBundle\Services\Random
+      autowire: true
+
+    sp.breadcrumbs:
+      class: AppBundle\Services\Breadcrumbs
+      autowire: true
+
+    #starting pack twig extensions
+    sp.ru_date_format_extansion:
+      class: AppBundle\Twig\RuDateFormatExtension
+      autowire: true
+      tags:
+        - { name: twig.extension }
+
+    sp.float_format:
+      class: AppBundle\Twig\FloatFormatExtension
+      public: false
+      autowire: true
+      tags:
+        - { name: twig.extension }
+
+    sp.plural_form_extansion:
+      class: AppBundle\Twig\PluralFormExtension
+      autowire: true
+      tags:
+        - { name: twig.extension }

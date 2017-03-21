@@ -89,6 +89,13 @@
         {% endblock %}
 
         <div class="container body-container">
+
+	        {% block breadcrumbs %}
+		        <!--breadcrums-->
+		        {{ wo_render_breadcrumbs() }}
+		        <!--/breadcrums-->
+	        {% endblock %}
+
             {% block body %}
                 <div class="row">
                     <div id="main" class="col-sm-9">

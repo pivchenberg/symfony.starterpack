@@ -7,8 +7,8 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Entity\File;
 
-use StarterPackBundle\Entity\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class FileUploader
@@ -27,7 +27,7 @@ class FileUploader
 		$this->user = $this->container->get('security.token_storage')->getToken()->getUser();
 	}
 
-	public function upload(File $file)
+	public function upload($file)
 	{
 		$uploadedFile = $file->getReadyToUploadFile();
 		//Оригинальное имя при загрузке

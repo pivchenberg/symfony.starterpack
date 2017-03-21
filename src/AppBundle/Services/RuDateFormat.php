@@ -7,6 +7,7 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Services\PluralForm;
 
 class RuDateFormat
 {

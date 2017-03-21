@@ -7,7 +7,6 @@
 
 namespace AppBundle\Services;
 
-
 class PluralForm
 {
 	private $forms;

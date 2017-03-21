@@ -24,7 +24,7 @@ class Breadcrumbs
 
 	public function addWithHomePage(array $arr)
 	{
-		$this->breadcrumbs->addItem('<i class="sst-icon sst-icon--home-t1"></i>', $this->router->generate('homepage'));
+		$this->breadcrumbs->addItem('<i class="fa fa-home"></i>', $this->router->generate('homepage'));
 		$this->add($arr);
 	}
 

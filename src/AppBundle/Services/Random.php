@@ -2,8 +2,6 @@
 
 namespace AppBundle\Services;
 
-
-
 class Random
 {
 	const RANDOM_BLOCK_LENGTH = 64;
