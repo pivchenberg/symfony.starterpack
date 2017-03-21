@@ -6,6 +6,10 @@
 	            <source>breadcrumb.blog</source>
 	            <target>Blog</target>
 	        </trans-unit>
+	        <trans-unit id="breadcrumb.home.icon">
+	            <source>breadcrumb.home.icon</source>
+	            <target><![CDATA[<i class="fa fa-home"></i>]]></target>
+	        </trans-unit>
             <trans-unit id="note">
                 <source>note</source>
                 <target>NOTE</target>
