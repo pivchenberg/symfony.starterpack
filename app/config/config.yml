@@ -14,7 +14,7 @@ imports:
 # See http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     # This parameter defines the codes of the locales (languages) enabled in the application
-    app_locales: en|ru
+    app_locales: ru
     app.notifications.email_sender: anonymous@example.com
 
 # Basic configuration for the Symfony framework features
@@ -31,7 +31,7 @@ framework:
     # http://symfony.com/doc/current/book/http_cache.html#edge-side-includes
     esi:             { enabled: true }
     translator:      { fallback: "%locale%" }
-    secret:          "%env(SYMFONY_SECRET)%"
+    secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
@@ -62,16 +62,16 @@ twig:
 doctrine:
     dbal:
         # if you don't want to use SQLite, change the URL in parameters.yml or set the DATABASE_URL environment variable
-        url: "%env(DATABASE_URL)%"
+        #url: "%env(DATABASE_URL)%"
 
         # instead of using a URL, you may also uncomment the following lines to configure your database
-        # driver:   pdo_mysql
-        # host:     "%database_host%"
-        # port:     "%database_port%"
-        # dbname:   "%database_name%"
-        # user:     "%database_user%"
-        # password: "%database_password%"
-        # charset:  UTF8
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

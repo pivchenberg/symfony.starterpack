@@ -29,9 +29,6 @@
                 <div class="navbar navbar-default navbar-static-top" role="navigation">
                     <div class="container">
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="{{ path('homepage') }}">
-                                Symfony Demo
-                            </a>
 
                             <button type="button" class="navbar-toggle"
                                     data-toggle="collapse"
@@ -42,6 +39,9 @@
                                 <span class="icon-bar"></span>
                             </button>
                         </div>
+
+	                    {{ knp_menu_render('AppBundle:Builder:mainMenu', {currentClass: 'active', template: "menu/top-menu.html.twig", allow_safe_labels: true}) }}
+
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav navbar-right">
 

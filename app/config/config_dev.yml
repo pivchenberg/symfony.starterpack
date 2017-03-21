@@ -15,7 +15,7 @@ monolog:
     handlers:
         main:
             type:   stream
-            path:   "%env(SYMFONY_LOG)%"
+            path:   "%env(symfony_log)%"
             level:  info
         console:
             type:   console
